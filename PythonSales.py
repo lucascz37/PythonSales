@@ -18,6 +18,7 @@ except:
 def menu(valor):
     if valor == "SAVE":
         app.removeAllWidgets()
+        app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.entry("Produto:", label=True)
         app.setEntryUpperCase("Produto:")
@@ -37,6 +38,7 @@ def menu(valor):
         app.infoBox("Lista de Produtos", "Produtos achados:\n" + retornoPesquisa)
     if valor == "PREFERENCES":
         app.removeAllWidgets()
+        app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         lista = ""
         x = 0
@@ -44,9 +46,11 @@ def menu(valor):
             lista = lista + data['produtos'][x] + "  R$:" + str(data['preco'][x]) + "   Quantidade:" + \
                     str(data['quantidade'][x]) + "\n"
             x = x + 1
-        app.addLabel("Lista de Produtos", lista)
+        app.addScrolledTextArea("Lista de Produtos", text=lista)
+        app.addButton("Criar lista", arquivoLista)
     if valor == "SETTINGS":
         app.removeAllWidgets()
+        app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabelAutoEntry("Item:", data['produtos'])
         app.setEntryUpperCase("Item:")
@@ -54,6 +58,7 @@ def menu(valor):
         app.addButton("Alterar", atualizacao)
     if valor == "REFRESH":
         app.removeAllWidgets()
+        app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabelAutoEntry("Produto:", data['produtos'], 1, 0)
         app.addLabelEntry("Valor:", 2, 0)
@@ -61,9 +66,11 @@ def menu(valor):
         app.addButton("Valor do Produto", adcionar, 3, 1)
     if valor == "PRINT":
         app.removeAllWidgets()
+        app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabel("Apurado", "Valor Apurado em Vendas:R$ " + str(data['apurado']))
         app.addLabel("Vendidos", "Quantidade de Itens Vendidos: " + str(data['quantidadeVendida']))
+        app.addButton("Relatorio de Produtos Vendidos", arquivoVendas)
 
 
 # função Menu Salvar
@@ -74,11 +81,11 @@ def salvar(valorBotao):
             produto = str(app.getEntry("Produto:"))
             try:
                 valor = float(app.getEntry("Valor do Produto:"))
-                Quantidade = float(app.getEntry("Quantidade:"))
-                if Quantidade >= 0:
+                quantidade = float(app.getEntry("Quantidade:"))
+                if quantidade >= 0:
                     data['produtos'].append(produto)
                     data['preco'].append(valor)
-                    data['quantidade'].append(Quantidade)
+                    data['quantidade'].append(quantidade)
                     app.infoBox("Salvo", "Produto Salvo com sucesso!")
                     app.clearEntry("Produto:")
                     app.clearEntry("Valor do Produto:")
@@ -95,13 +102,12 @@ def salvar(valorBotao):
 def atualizacao(valorBotao):
     if valorBotao == "Alterar":
         try:
-            if data['produtos'].index(app.getEntry("Item:")) and float(app.getEntry("Quantidade:")):
-                indice = data['produtos'].index(app.getEntry("Item:"))
-                if float(app.getEntry("Quantidade:")) >= 0:
-                    data['quantidade'][indice] = float(app.getEntry('Quantidade:'))
-                    app.infoBox("Alteração", "Alterado")
-                else:
-                    app.infoBox("Quantidade", "Quantidade Invalida")
+            indice = data['produtos'].index(app.getEntry("Item:"))
+            if float(app.getEntry("Quantidade:")) >= 0:
+                data['quantidade'][indice] = float(app.getEntry('Quantidade:'))
+                app.infoBox("Alteração", "Alterado")
+            else:
+                app.infoBox("Quantidade", "Quantidade Invalida")
         except:
             app.warningBox("Valor Invalido", "Alguns Dos Campos Está Incorreto")
 
@@ -133,11 +139,42 @@ def adcionar(valorBotao):
         except:
             app.warningBox("Error", "Erro Para Conseguir Valor do Produto ou Produto Inexistente")
 
+
+#função Para criar arquivos com vendas
+def arquivoVendas(valorBotao):
+    if valorBotao == "Relatorio de Produtos Vendidos":
+        relatorio = open("relatorio.txt", 'w')
+        relatorio.write("Valor Apurado em Vendas:R$ " + str(data['apurado']) + "\n")
+        relatorio.write("Quantidade de Itens Vendidos: " + str(data['quantidadeVendida']) + "\n")
+        x = 0
+        while x < len(data['itensVendidos']):
+            relatorio.write(str(data['itensVendidos'][x][0]) + "  R$:"+ str(data['itensVendidos'][x][1]) + "\n")
+            x = x + 1
+        relatorio.close()
+        app.infoBox("Relatório", "Relatório Gerado")
+
+
+#função para criar arquivo de lista e quantidade de produtos
+def arquivoLista(valorBotao):
+    if valorBotao == "Criar lista":
+        listaSalvar = ""
+        x = 0
+        while x < len(data['produtos']):
+            listaSalvar = listaSalvar + data['produtos'][x] + "  R$:" + str(data['preco'][x]) + "   Quantidade:" + \
+                    str(data['quantidade'][x]) + "\n"
+            x = x + 1
+        relatorioLista = open("Lista de Produtos.txt", 'w')
+        relatorioLista.write(listaSalvar)
+        relatorioLista.close()
+        app.infoBox("Gerado", "Lista Gerada")
+
+
 # fim das funções
 app = gui("Vendas", "378x265")
 
 
-app.setBg("Grey")
+#app.setBg("LightBlue")
+app.setBgImage("background.gif")
 opcoes = ["SAVE", "SEARCH", "PREFERENCES", "SETTINGS", "REFRESH", "PRINT"]
 app.addToolbar(opcoes, menu, findIcon=True)
 app.addStatusbar(fields=2)

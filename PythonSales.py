@@ -16,7 +16,7 @@ except:
 
 
 def menu(valor):
-    if valor == "SAVE":
+    if valor == "SCRIPT":
         app.removeAllWidgets()
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
@@ -56,7 +56,7 @@ def menu(valor):
         app.setEntryUpperCase("Item:")
         app.entry("Quantidade:", label=True)
         app.addButton("Alterar", atualizacao)
-    if valor == "REFRESH":
+    if valor == "CART-ALT-2":
         app.removeAllWidgets()
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
@@ -82,7 +82,7 @@ def salvar(valorBotao):
             try:
                 valor = float(app.getEntry("Valor do Produto:"))
                 quantidade = float(app.getEntry("Quantidade:"))
-                if quantidade >= 0:
+                if quantidade >= 0 and app.getEntry("Produto:") not in data['produtos']:
                     data['produtos'].append(produto)
                     data['preco'].append(valor)
                     data['quantidade'].append(quantidade)
@@ -91,7 +91,7 @@ def salvar(valorBotao):
                     app.clearEntry("Valor do Produto:")
                     app.clearEntry("Quantidade:")
                 else:
-                    app.infoBox("Quantidade", "Quantidade Invalida")
+                    app.infoBox("Quantidade", "Quantidade Invalida ou Produto já adcionado")
             except ValueError:
                 app.warningBox("Valor Invalido", "Valor inserido não é inteiro.")
         else:
@@ -170,12 +170,12 @@ def arquivoLista(valorBotao):
 
 
 # fim das funções
-app = gui("Vendas", "378x265")
+app = gui("PythonSales", "378x265")
 
 
-#app.setBg("LightBlue")
+app.setBg("LIGHTBLUE")
 app.setBgImage("background.gif")
-opcoes = ["SAVE", "SEARCH", "PREFERENCES", "SETTINGS", "REFRESH", "PRINT"]
+opcoes = ["SCRIPT", "SEARCH", "PREFERENCES", "SETTINGS", "CART-ALT-2", "PRINT"]
 app.addToolbar(opcoes, menu, findIcon=True)
 app.addStatusbar(fields=2)
 app.setStatusbar("Autor:Lucas Andrade", 0)

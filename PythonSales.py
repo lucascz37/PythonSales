@@ -183,5 +183,5 @@ app.setStatusbar("Python_Sales v3.0", 1)
 app.addLabel("inicio", "Python_Sales")
 app.addLabel("Instruções", "1-Adicionar Produtos\n2-Pesquisar Produtos\n3-Exibir Lista de Produtos\n4-Alterar "
                            "Quantidade\n5-Realizar Venda\n6-Controle de Lucro e Vendas")
-
+#Quem olhar é gado!
 app.go()

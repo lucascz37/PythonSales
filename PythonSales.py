@@ -59,11 +59,19 @@ def menu(valor):
     if valor == "CART-ALT-2":
         app.removeAllWidgets()
         app.setBgImage("background.gif")
-        app.addLabel("inicio", "Python_Sales", 0, 0)
-        app.addLabelAutoEntry("Produto:", data['produtos'], 1, 0)
-        app.addLabelEntry("Valor:", 2, 0)
+        app.addLabel("inicio", "Python_Sales", 0, 0, 2)
+        app.addLabelAutoEntry("Produto:", data['produtos'], 1, 0, 2)
+        app.setEntryUpperCase("Produto:")
+        app.addLabelEntry("Valor:", 2, 0, 2)
         app.addButton("Realizar Venda", venda, 3, 0)
         app.addButton("Valor do Produto", adcionar, 3, 1)
+    if valor == "CLOSE":
+        app.removeAllWidgets()
+        app.setBgImage("background.gif")
+        app.addLabel("inicio", "Python_Sales", 0, 0)
+        app.addLabelAutoEntry("Produto:", data['produtos'])
+        app.setEntryUpperCase("Produto:")
+        app.addButton("Remover Produto", remover)
     if valor == "PRINT":
         app.removeAllWidgets()
         app.setBgImage("background.gif")
@@ -169,19 +177,32 @@ def arquivoLista(valorBotao):
         app.infoBox("Gerado", "Lista Gerada")
 
 
+#função de remover produtos:
+def remover(valorBotao):
+    if valorBotao == "Remover Produto":
+        if str(app.getEntry("Produto:")) in data['produtos']:
+            indice = data['produtos'].index(app.getEntry("Produto:"))
+            del data['produtos'][indice]
+            del data['preco'][indice]
+            del data['quantidade'][indice]
+            app.infoBox("Removido", "Produto Removido Com Sucesso")
+        else:
+            app.infoBox("Não Encontrado", "Produto Não Cadastrado No Sistema")
+
+
 # fim das funções
 app = gui("PythonSales", "378x265")
 
 
 app.setBg("LIGHTBLUE")
 app.setBgImage("background.gif")
-opcoes = ["SCRIPT", "SEARCH", "PREFERENCES", "SETTINGS", "CART-ALT-2", "PRINT"]
+opcoes = ["SCRIPT", "SEARCH", "PREFERENCES", "SETTINGS", "CART-ALT-2", "CLOSE", "PRINT"]
 app.addToolbar(opcoes, menu, findIcon=True)
 app.addStatusbar(fields=2)
 app.setStatusbar("Autor:Lucas Andrade", 0)
 app.setStatusbar("Python_Sales v3.0", 1)
 app.addLabel("inicio", "Python_Sales")
 app.addLabel("Instruções", "1-Adicionar Produtos\n2-Pesquisar Produtos\n3-Exibir Lista de Produtos\n4-Alterar "
-                           "Quantidade\n5-Realizar Venda\n6-Controle de Lucro e Vendas")
+                           "Quantidade\n5-Realizar Venda\n6-Remover Produto\n7-Controle de Lucro e Vendas")
 #Quem olhar é gado!
 app.go()

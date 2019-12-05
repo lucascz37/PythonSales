@@ -16,8 +16,8 @@ except:
 
 
 def menu(valor):
+    app.removeAllWidgets()
     if valor == "SCRIPT":
-        app.removeAllWidgets()
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.entry("Produto:", label=True)
@@ -25,7 +25,7 @@ def menu(valor):
         app.entry("Valor do Produto:", label=True)
         app.entry("Quantidade:", label=True)
         app.addButton("Salvar", salvar)
-    if valor == "SEARCH":
+    elif valor == "SEARCH":
         pesquisa = app.stringBox("Pesquisa", "Digite o nome do Item para Pesquisa:")
         if pesquisa == "" or pesquisa is None:
             pesquisa = " "
@@ -36,8 +36,7 @@ def menu(valor):
                 retornoPesquisa = retornoPesquisa + str(data['produtos'][x]) + " R$:" + str(data['preco'][x]) + "\n"
             x = x+1
         app.infoBox("Lista de Produtos", "Produtos achados:\n" + retornoPesquisa)
-    if valor == "PREFERENCES":
-        app.removeAllWidgets()
+    elif valor == "PREFERENCES":
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         lista = ""
@@ -48,16 +47,14 @@ def menu(valor):
             x = x + 1
         app.addScrolledTextArea("Lista de Produtos", text=lista)
         app.addButton("Criar lista", arquivoLista)
-    if valor == "SETTINGS":
-        app.removeAllWidgets()
+    elif valor == "SETTINGS":
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabelAutoEntry("Item:", data['produtos'])
         app.setEntryUpperCase("Item:")
         app.entry("Quantidade:", label=True)
         app.addButton("Alterar", atualizacao)
-    if valor == "CART-ALT-2":
-        app.removeAllWidgets()
+    elif valor == "CART-ALT-2":
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0, 2)
         app.addLabelAutoEntry("Produto:", data['produtos'], 1, 0, 2)
@@ -65,15 +62,13 @@ def menu(valor):
         app.addLabelEntry("Valor:", 2, 0, 2)
         app.addButton("Realizar Venda", venda, 3, 0)
         app.addButton("Valor do Produto", adcionar, 3, 1)
-    if valor == "CLOSE":
-        app.removeAllWidgets()
+    elif valor == "CLOSE":
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabelAutoEntry("Produto:", data['produtos'])
         app.setEntryUpperCase("Produto:")
         app.addButton("Remover Produto", remover)
-    if valor == "PRINT":
-        app.removeAllWidgets()
+    elif valor == "PRINT":
         app.setBgImage("background.gif")
         app.addLabel("inicio", "Python_Sales", 0, 0)
         app.addLabel("Apurado", "Valor Apurado em Vendas:R$ " + str(data['apurado']))

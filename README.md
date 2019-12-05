@@ -1,0 +1,30 @@
+# Python Sales
+- Pequeno Programa de Vendas, Controle de Estoque e Relatório de Vendas
+
+# Tecnologias utilizadas:
+
+## Linguagem:
+- Python3
+
+## Para as interfaces:
+- AppJar/Tkinter
+
+# Como contribuir:
+
+- Primeiro, você precisa baixar as bibliotecas necessárias: AppJar e Tkinter. Para instalar o AppJar, execute:
+
+```bash
+$ pip3 install appjar
+```
+
+- Agora você precisa do tkinter, caso já não tenha instalado em sua máquina, execute:
+
+```bash
+$ sudo apt-get install python3-tk
+```
+
+- E pronto, você está pronto para executar a aplicação, basta rodar o comando:
+
+```bash
+$ python3 PythonSales.py
+```

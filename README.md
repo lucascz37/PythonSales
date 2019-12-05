@@ -9,7 +9,7 @@
 ## Para as interfaces:
 - AppJar/Tkinter
 
-# Como contribuir:
+# Como executar:
 
 - Primeiro, você precisa baixar as bibliotecas necessárias: AppJar e Tkinter. Para instalar o AppJar, execute:
 

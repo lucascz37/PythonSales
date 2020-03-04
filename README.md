@@ -7,14 +7,15 @@
 - Python3
 
 ## Para as interfaces:
-- AppJar/Tkinter
+- AppJar
+- Tkinter
 
 # Como executar:
 
 - Primeiro, você precisa baixar as bibliotecas necessárias: AppJar e Tkinter. Para instalar o AppJar, execute:
 
 ```bash
-$ pip3 install appjar
+$ pip install -r requirements.txt
 ```
 
 - Agora você precisa do tkinter, caso já não tenha instalado em sua máquina, execute:
@@ -26,5 +27,5 @@ $ sudo apt-get install python3-tk
 - E pronto, você está pronto para executar a aplicação, basta rodar o comando:
 
 ```bash
-$ python3 PythonSales.py
+$ python PythonSales.py
 ```
